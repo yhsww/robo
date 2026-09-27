@@ -2,13 +2,15 @@ package models;
 
 import util.Utilitarios;
 
-public class Jogo01 {
+public class Jogo01 implements Jogo{
 
     protected Tabuleiro tabuleiro;
     private Robo01 robo;
     protected Fruta fruta;
 
     public Jogo01(){
+
+       this.tabuleiro = new Tabuleiro();
         this.tabuleiro.criarTabuleiro();
     }
 
@@ -126,6 +128,8 @@ public class Jogo01 {
         }
 
         while(!this.robo.encontrouAlimento(this.fruta)){
+
+            System.out.println("\n\n");
 
             System.out.println("Mover robô [ 1 - número/ 2 - texto]?");
             int numMovimento = Utilitarios.inteiroValido();

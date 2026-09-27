@@ -87,7 +87,7 @@ public class Robo01 {
             return false;
         }
 
-        if((posX < 0 || posX > 4) || (posY < 0 || posY > 4)){
+        if((posX < 0 || posX > Tabuleiro.DIMENSAO_TABULEIRO) || (posY < 0 || posY > Tabuleiro.DIMENSAO_TABULEIRO)){
             return false;
         }
 
@@ -140,7 +140,7 @@ public class Robo01 {
             return false;
         }
 
-        if((posX < 0 || posX > 4) || (posY < 0 || posY > 4)){
+        if((posX < 0 || posX > Tabuleiro.DIMENSAO_TABULEIRO) || (posY < 0 || posY > Tabuleiro.DIMENSAO_TABULEIRO)){
             return false;
         }
 

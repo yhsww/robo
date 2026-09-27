@@ -5,32 +5,28 @@ import java.util.List;
 
 public class Tabuleiro {
 
-    public static int DIMENSAO_TABULEIRO = 4;
-    private static List<Casa> posicoesTabuleiro;
+    public static final int DIMENSAO_TABULEIRO = 4;
+    private List<Casa> posicoesTabuleiro;
 
     public Tabuleiro(){
-        Tabuleiro.posicoesTabuleiro = new ArrayList<>(Tabuleiro.DIMENSAO_TABULEIRO*Tabuleiro.DIMENSAO_TABULEIRO);
+        this.posicoesTabuleiro = new ArrayList<>(Tabuleiro.DIMENSAO_TABULEIRO*Tabuleiro.DIMENSAO_TABULEIRO);
     }
 
     public void criarTabuleiro(){
 
-        Tabuleiro.posicoesTabuleiro.clear();
+        this.posicoesTabuleiro.clear();
         
         //4X4 = 16
 
-        int posX = 0;
-
-        while(posX < Tabuleiro.DIMENSAO_TABULEIRO){
-
-            for(Casa casa: Tabuleiro.posicoesTabuleiro){
-                casa.setPosX(posX);
-                for(int posY = 0; posY < Tabuleiro.DIMENSAO_TABULEIRO; posY++){
-                    casa.setPosY(posY);
-                }
+        for (int posX = 0; posX < Tabuleiro.DIMENSAO_TABULEIRO; posX++) {
+            for (int posY = 0; posY < Tabuleiro.DIMENSAO_TABULEIRO; posY++) {
                 
-                posX++;
-            } 
-
+                // Instancia uma nova Casa informando a posição atual
+                Casa novaCasa = new Casa(posX, posY);
+                
+                // Adiciona o objeto populado na lista do tabuleiro
+                this.posicoesTabuleiro.add(novaCasa);
+            }
         }
 
         //posicoesTabuleiro.get(0) -> pos = 1, 1

@@ -6,11 +6,21 @@ public class Robo02 extends Robo01{
 
     private int qtdMovimentosInvalidos;
     private int qtdMovimentosValidos;
+    private boolean encontrouObstaculo;
 
     public Robo02(Cor cor){
         super(cor);
         this.qtdMovimentosInvalidos = 0;
         this.qtdMovimentosValidos = 0;
+        this.encontrouObstaculo = false;
+    }
+
+    public void setEncontrouObstaculo(boolean encontrouObstaculo){
+        this.encontrouObstaculo = encontrouObstaculo;
+    }
+
+    public boolean getEncontrouObstaculo(){
+        return this.encontrouObstaculo;
     }
 
     public void setQtdMovimentosValidos(int qtdMovimentosValidos){
@@ -58,7 +68,7 @@ public class Robo02 extends Robo01{
             posX -= 1;
         }
 
-        if((posX < 0 || posX > 16) || (posY < 0 || posY > 16)){
+        if((posX < 0 || posX > Tabuleiro.DIMENSAO_TABULEIRO) || (posY < 0 || posY > Tabuleiro.DIMENSAO_TABULEIRO)){
             return false;
         }
 

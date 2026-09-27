@@ -17,7 +17,7 @@ public class RoboInteligente extends Robo02{
 
         int numTipoMovimento = 0;
 
-        while(numTipoMovimento == this.movimento.getNumTipoMovimento() || numTipoMovimento == 0){
+        while( (this.movimento != null && numTipoMovimento == this.movimento.getNumTipoMovimento()) || numTipoMovimento == 0){
             numTipoMovimento = ThreadLocalRandom.current().nextInt(1, 5);
         }
         
@@ -43,7 +43,7 @@ public class RoboInteligente extends Robo02{
             posX -= 1;
         }
 
-        if((posX < 0 || posX > 4) || (posY < 0 || posY > 4)){
+        if((posX < 0 || posX > Tabuleiro.DIMENSAO_TABULEIRO) || (posY < 0 || posY > Tabuleiro.DIMENSAO_TABULEIRO)){
             return false;
         }
 

@@ -12,16 +12,16 @@ public class Rocha extends Obstaculo{
         int posX = robo.getPosX();
         int posY = robo.getPosY();
 
-        if(robo.getMovimento().equals(Movimento.UP)){
+        if(robo.getMovimento() == Movimento.UP){
             posY -= 1;
             robo.setPosY(posY);
-        }else if(robo.getMovimento().equals(Movimento.DOWN)){
+        }else if(robo.getMovimento() == Movimento.DOWN){
             posY += 1;
             robo.setPosY(posY);
-        }else if(robo.getMovimento().equals(Movimento.RIGHT)){
+        }else if(robo.getMovimento() == Movimento.RIGHT){
             posX -=1;
             robo.setPosX(posX);
-        }else if(robo.getMovimento().equals(Movimento.LEFT)){
+        }else if(robo.getMovimento() == Movimento.LEFT){
             posX += 1;
             robo.setPosX(posX);
         }

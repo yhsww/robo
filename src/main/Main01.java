@@ -1,6 +1,7 @@
 package main;
 
 import models.Jogo01;
+import models.Jogo04;
 import util.Utilitarios;
 
 public class Main01 {
@@ -31,22 +32,23 @@ public class Main01 {
                     System.out.println("Insira sua opção: ");
                     int op = Utilitarios.inteiroValido();
 
-                    if(op == 1){
-                        jogo = new Jogo01();
-                    }else if( op == 2){
-                        return;
-                    }else{
-
-                        while(op != 1 && op != 2){
+                     while(op != 1 && op != 2){
                             System.out.println("Opção inválida. Insira novamente: ");
                             op = Utilitarios.inteiroValido();
                         }
+                    
+
+                    if(op == 1){
+                        jogo = new Jogo01();
+
+                    }else if( op == 2){
+                        return;
                     }
 
                     break;
 
                 }
-                
+
                 default: System.out.println("Opção inválida."); break;
             }
         }
