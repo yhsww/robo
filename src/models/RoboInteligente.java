@@ -2,58 +2,35 @@ package models;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-public class RoboInteligente extends Robo02{
+public class RoboInteligente extends Robo{
+
+    private int ultimaDirecaoInvalida = 0;
 
     public RoboInteligente(Cor cor){
         super(cor);
     }
 
-    public boolean mover(){
+    public void mover() throws MovimentoInvalidoException{
 
+        int direcao = ThreadLocalRandom.current().nextInt(1, 5);
 
-        Movimento novoMovimento = null;
-        int posX = this.posX;
-        int posY = this.posY;
-
-        int numTipoMovimento = 0;
-
-        while( (this.movimento != null && numTipoMovimento == this.movimento.getNumTipoMovimento()) || numTipoMovimento == 0){
-            numTipoMovimento = ThreadLocalRandom.current().nextInt(1, 5);
+        while(this.ultimaDirecaoInvalida == direcao){
+            direcao = ThreadLocalRandom.current().nextInt(1, 5);
         }
-        
 
-        if(numTipoMovimento == Movimento.UP.getNumTipoMovimento()){
+        try{
 
-            novoMovimento = Movimento.UP;
-            posY += 1;
+            mover(direcao);
+            this.ultimaDirecaoInvalida = 0;
 
-        }else if(numTipoMovimento == Movimento.DOWN.getNumTipoMovimento()){
-
-            novoMovimento = Movimento.DOWN;
-            posY -= 1;
+        }catch(MovimentoInvalidoException e){
             
-        }else if(numTipoMovimento == Movimento.RIGHT.getNumTipoMovimento()){
-
-            novoMovimento = Movimento.RIGHT;
-            posX += 1;
-
-        }else if(numTipoMovimento == Movimento.LEFT.getNumTipoMovimento()){
-
-            novoMovimento = Movimento.LEFT;
-            posX -= 1;
+            this.ultimaDirecaoInvalida = direcao;
+            this.qtdMovimentosInvalidos++;
+            throw e;
         }
 
-        if((posX < 0 || posX > Tabuleiro.DIMENSAO_TABULEIRO) || (posY < 0 || posY > Tabuleiro.DIMENSAO_TABULEIRO)){
-            return false;
-        }
-
-        this.movimento = novoMovimento;
-        this.posX = posX;
-        this.posY = posY;
-        return true;
-
+        this.qtdMovimentosValidos++;
     }
-
-
     
 }

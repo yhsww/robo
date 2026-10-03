@@ -2,9 +2,11 @@ package models;
 
     public enum Cor {
 
-    VERMELHO("Vermelho", 1), AZUL("Azul", 2), 
-    VERDE("Verde", 3), BRANCO("Branco", 4), 
-    PRETO( "Preto", 5), AMARELO("Amarelo", 6);
+    //red, blue, green, white, dark, yellow
+    
+    RED("red", 1), BLUE("blue", 2), 
+    GREEN("green", 3), WHITE("white", 4), 
+    DARK( "dark", 5), YELLOW("yellow", 6);
 
     private String tipoCor;
     private int numCor;

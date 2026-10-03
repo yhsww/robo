@@ -34,6 +34,6 @@ public abstract class Obstaculo {
         return this.posY;
     }
 
-    public abstract void bater(Robo01 robo);
+    public abstract void bater(Robo robo);
 
 }

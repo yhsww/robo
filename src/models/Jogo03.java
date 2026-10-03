@@ -5,128 +5,161 @@ import java.util.List;
 
 import util.Utilitarios;
 
-public class Jogo03 extends Jogo01{
+public class Jogo03 extends Jogo{
 
-    private RoboInteligente roboInteligente;
-    private Robo02 roboNormal;
+    public Jogo03(){
+        super();
+    }
 
-    public void adicionarRobo(){
+    private boolean todosEncontraram(){
 
-        if(this.roboInteligente != null && roboNormal != null){
-        
-            String resp = null;
-
-            while(!resp.equalsIgnoreCase("s") && !resp.equalsIgnoreCase("n")){
-                System.out.println("Os robôs já foram configurados. Deseja realizar alterações? [s/n]");
-                resp = Utilitarios.stringValida();
+        for(Robo robo: this.robos){
+            if(!robo.encontrouAlimento(this.fruta)){
+                return false;
             }
-
-            if(resp.equalsIgnoreCase("n")){
-                return;
-            }else{
-                
-                this.roboInteligente = null;
-                this.roboNormal = null;
-            }
-
         }
 
-        Cor corNova = null;
+        return true;
 
+    }
+
+    public boolean adicionarRobo(){
+        
+        Robo novoRobo = null;
         List<Cor> coresDisponiveis = new ArrayList<>(List.of(Cor.values()));
 
-        for(Cor cor: Cor.values()){
-            if(this.roboInteligente.getCor().equals(cor)){
-                coresDisponiveis.remove(cor);
+        if(!this.robos.isEmpty()){
+            
+            for(Robo robo: this.robos){
+                coresDisponiveis.remove(robo.getCor());
             }
         }
-        
+
         System.out.println("CORES DISPONÍVEIS");
-        for(Cor cor : coresDisponiveis){
+        for(Cor cor: coresDisponiveis){
             System.out.println(cor.getNumCor() + " - " + cor.getTipoCor());
         }
 
-        System.out.println("Insira o número correspondente à cor do robô: ");
+        System.out.println("Selecione o número da cor desejada para o robô: ");
         int escolha = Utilitarios.inteiroValido();
 
-        corNova = coresDisponiveis.stream().filter(cor -> cor.getNumCor() == escolha).findAny().get();
+        while(escolha <= 0 || escolha > Cor.values().length){
 
-        if(corNova == null){
-            System.out.println("Cor indisponível!");
-            return;
+            System.out.println("A cor escolhida não está disponível. Selecione uma cor válida: ");
+            escolha = Utilitarios.inteiroValido();
         }
 
-        if(this.roboInteligente == null){
-            this.roboInteligente = new RoboInteligente(corNova);
-        }else if(this.roboNormal == null){
-            this.roboNormal = new Robo02(corNova);
+        switch (escolha) {
+
+            case 1: {
+
+                if(this.robos.isEmpty()){
+                    novoRobo = new Robo(Cor.RED);
+                }else{
+                    novoRobo = new RoboInteligente(Cor.RED);
+                }
+                 break;
+                }
+            case 2: {
+
+                if(this.robos.isEmpty()){
+                    novoRobo = new Robo(Cor.BLUE);
+                }else{
+                    novoRobo = new RoboInteligente(Cor.BLUE);
+                }
+                 break;
+                }
+            case 3: {
+
+                if(this.robos.isEmpty()){
+                    novoRobo = new Robo(Cor.GREEN);
+                }else{
+                    novoRobo = new RoboInteligente(Cor.GREEN);
+                }
+                 break;
+                }
+            case 4: {
+
+                if(this.robos.isEmpty()){
+                    novoRobo = new Robo(Cor.WHITE);
+                }else{
+                    novoRobo = new RoboInteligente(Cor.WHITE);
+                }
+                 break;
+                }
+            case 5: {
+
+                if(this.robos.isEmpty()){
+                    novoRobo = new Robo(Cor.DARK);
+                }else{
+                    novoRobo = new RoboInteligente(Cor.DARK);
+                }
+                 break;
+                }
+            case 6: {
+
+                if(this.robos.isEmpty()){
+                    novoRobo = new Robo(Cor.YELLOW);
+                }else{
+                    novoRobo = new RoboInteligente(Cor.YELLOW);
+                }
+                 break;
+                }
         }
 
+         System.out.println("Coordenada X");
+        int posX = tabuleiro.definirCoordenada();
+         System.out.println("Coordenada Y");
+        int posY = tabuleiro.definirCoordenada();
+        novoRobo.setPosX(posX);
+        novoRobo.setPosY(posY);
+
+        if(this.tabuleiro.adicionarRobo(novoRobo)){
+            this.robos.add(novoRobo);
+            System.out.println("Robô adicionado com sucesso!");
+            return true;
+        }
+
+        System.out.println("Posição inválida!");
+        return false;
+        
     }
 
-    public void iniciarJogo(){
+    public void iniciarPartida(){
 
-          if(this.roboInteligente == null || this.roboNormal == null){
-            System.out.println("Adicione robôs para iniciar o jogo!");
+        if(!autorizarPartida()){
             return;
         }
 
-        if(this.fruta == null){
-            System.out.println("Adiciona uma fruta para iniciar o jogo!");
-            return;
-        }
+        int partida = 1;
+        while(!todosEncontraram()){
 
-        while(!(this.roboInteligente.encontrouAlimento(this.fruta) && !this.roboNormal.encontrouAlimento(this.fruta))){
-
-            boolean lancaExcecao1 = this.roboInteligente.mover();
-            boolean lancaExcecao2 = this.roboNormal.mover();
-
-            while(lancaExcecao1){
+            System.out.println();
+            System.out.println("PARTIDA " + partida);
+            for(Robo robo : this.robos){
                 
-                new MovimentoInvalidoException();
-                lancaExcecao1 = this.roboInteligente.mover();
-                 this.roboInteligente.setQtdMovimentosInvalidos(this.roboInteligente.getQtdMovimentosInvalidos() + 1);
-            }
+                if(robo.encontrouAlimento(fruta)) continue;
+                moverAleatorio(robo);
 
-              if(!lancaExcecao1){
-                this.roboInteligente.setQtdMovimentosValidos(this.roboInteligente.getQtdMovimentosValidos() + 1);
-            }
-
-            while(lancaExcecao2){
-                new MovimentoInvalidoException();
-                lancaExcecao2 = this.roboNormal.mover();
-                this.roboNormal.setQtdMovimentosInvalidos(this.roboNormal.getQtdMovimentosInvalidos() + 1);
-            }
-
+            }  
             
-            if(!lancaExcecao2){
-                this.roboNormal.setQtdMovimentosValidos(this.roboNormal.getQtdMovimentosValidos() + 1);
-            }
+            pausa();
+            this.tabuleiro.criarTabuleiro();
+           
 
+            partida++;
+        }
+
+
+        for(Robo robo: this.robos){
+            System.out.println("------------");
+            System.out.println(robo.toString());
+        }
+
+        System.out.println("Ambos os robôs alcaçaram a fruta!");
 
         }
 
-        System.out.println("Os robôs encontraram a fruta!");
-
-        System.out.println("\n\n");
-
-         System.out.println("-----------------------------");
-        System.out.println();
-        System.out.println("Robô Inteligente - " + this.roboInteligente.getCor().getTipoCor());
-        System.out.println("Quantidade de movimentos válidos: " + this.roboInteligente.getQtdMovimentosValidos());
-        System.out.println("Quantidade de movimentos inválidos: " + this.roboInteligente.getQtdMovimentosValidos());
-        System.out.println("Total de movimentos: " + this.roboInteligente.getQtdMovimentosInvalidos() + this.roboInteligente.getQtdMovimentosValidos());
-        System.out.println("-----------------------------");
-        System.out.println("Robô Normal - " + this.roboNormal.getCor().getTipoCor());
-        System.out.println("Quantidade de movimentos válidos: " + this.roboNormal.getQtdMovimentosValidos());
-        System.out.println("Quantidade de movimentos inválidos: " + this.roboNormal.getQtdMovimentosValidos());
-        System.out.println("Total de movimentos: " + this.roboNormal.getQtdMovimentosInvalidos() + this.roboNormal.getQtdMovimentosValidos());
-        System.out.println("\n\n");
-        System.out.println("FIM DE JOGO");
-
-
-
+        
     }
-
     
-}

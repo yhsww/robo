@@ -6,8 +6,10 @@ public class Bomba extends Obstaculo{
         super(id);
     }
 
-    public void bater(Robo01 robo){
-        robo.setPodeseMover(false);
+    public void bater(Robo robo){
+        
+        robo.setExplodiu(true);
+        System.out.println("BOOM! O robô " + robo.getCor().getTipoCor() + " explodiu!");
     }
     
 }
