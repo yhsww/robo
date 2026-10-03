@@ -170,7 +170,7 @@ public class Jogo04 extends Jogo{
 
     }
 
-    public void encontrouObstaculo(Robo robo){
+    private void encontrouObstaculo(Robo robo){
 
         for(Obstaculo obstaculo: this.obstaculos){
 
