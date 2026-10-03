@@ -265,7 +265,7 @@ public class Jogo04 extends Jogo{
             }
         }
 
-        System.out.println("Ambos os robôs explodiram!");
+        System.out.println("Vencedor: " + vencedor.getCor().getTipoCor());
        
     }
 
