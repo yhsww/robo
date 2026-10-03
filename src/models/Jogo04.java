@@ -265,14 +265,8 @@ public class Jogo04 extends Jogo{
             }
         }
 
-        if(vencedor == null){
-            System.out.println("Ambos os robôs explodiram!");
-        }else{
-            System.out.println("Vencedor: " + vencedor.getCor().getTipoCor());
-        }
-
-
-
+        System.out.println("Ambos os robôs explodiram!");
+       
     }
 
 
