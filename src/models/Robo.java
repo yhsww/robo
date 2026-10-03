@@ -106,9 +106,8 @@ public class Robo {
             case "down": mover(2); break;
             case "right": mover(3); break;
             case "left": mover(4); break;
-            default: throw new MovimentoInvalidoException("Movimento inválido: " + direcao + " inexistente!");
+            default: throw new MovimentoInvalidoException();
         }
-
 
     }
 
@@ -120,16 +119,18 @@ public class Robo {
         int novaPosY = this.posY;
 
          switch (direcao) {
-            case 1: this.movimento = Movimento.UP; novaPosY++;break;
-            case 2: this.movimento = Movimento.DOWN; novaPosY--; break;
-            case 3: this.movimento = Movimento.RIGHT; novaPosX++;break;
-            case 4: this.movimento = Movimento.LEFT; novaPosX--;break;
-            default: this.qtdMovimentosInvalidos++; throw new MovimentoInvalidoException("Movimento inexistente! O movimento escolhido não é existente.");
+            case 1: this.movimento = Movimento.UP; novaPosX--;break;
+            case 2: this.movimento = Movimento.DOWN; novaPosX++; break;
+            case 3: this.movimento = Movimento.RIGHT; novaPosY++;break;
+            case 4: this.movimento = Movimento.LEFT; novaPosY--;break;
+            default: this.qtdMovimentosInvalidos++; throw new MovimentoInvalidoException();
         }
+
+        System.out.println("Direção: " + this.movimento.getTipoMovimento());
 
         if(novaPosX <= 0 || novaPosX > Tabuleiro.DIMENSAO_TABULEIRO || novaPosY <= 0 || novaPosY > Tabuleiro.DIMENSAO_TABULEIRO){
             this.qtdMovimentosInvalidos++;
-            throw new MovimentoInvalidoException("Movimento inválido! O robô não pode sair do tabuleiro.");
+            throw new MovimentoInvalidoException();
         }
 
         this.posX = novaPosX;
@@ -143,7 +144,6 @@ public class Robo {
 
         this.posX = this.posXAnterior;
         this.posY = this.posYAnterior;
-        System.out.println("Robô volta para a casa anterior:  [" + this.posX + "," + this.posY + "]");
 
     }
     
@@ -162,7 +162,6 @@ public class Robo {
         
         return false;
     }
-
 
     
 }

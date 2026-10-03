@@ -33,7 +33,7 @@ public class Jogo04 extends Jogo{
         System.out.println("Selecione o número da cor desejada para o robô: ");
         int escolha = Utilitarios.inteiroValido();
 
-        while(escolha <= 0 || escolha > Cor.values().length){
+        while(escolha <= 0 || escolha > Cor.values().length || jaTemRoboDessaCor(escolha)){
 
             System.out.println("A cor escolhida não está disponível. Selecione uma cor válida: ");
             escolha = Utilitarios.inteiroValido();
@@ -148,13 +148,14 @@ public class Jogo04 extends Jogo{
         switch (escolha) {
             case 1: obstaculo = new Rocha(posicao); break;
             case 2: obstaculo = new Bomba(posicao); break;
-            default: System.out.println("Posição inválida!"); return false;
+            default: System.out.println("Opção indisponível!"); return false;
         }
 
-         System.out.println("Coordenada X");
-        int posX = this.tabuleiro.definirCoordenada();
-         System.out.println("Coordenada Y");
-        int posY = this.tabuleiro.definirCoordenada();
+        
+        System.out.println("Coordenada X");
+        int posX = tabuleiro.definirCoordenada();
+        System.out.println("Coordenada Y");
+        int posY = tabuleiro.definirCoordenada();
         obstaculo.setPosX(posX);
         obstaculo.setPosY(posY);
 
@@ -166,7 +167,6 @@ public class Jogo04 extends Jogo{
 
         System.out.println("Posição inválida!");
         return false;
-
 
     }
 
@@ -196,11 +196,27 @@ public class Jogo04 extends Jogo{
 
         int partida = 1;
 
+        System.out.println("Preparando o tabuleiro...");
+        pausa();
+        this.tabuleiro.criarTabuleiro();
+        System.out.println("Comece o jogo!");   
+
+
         while(temRoboVivo() && vencedor == null){
             System.out.println();
             System.out.println("PARTIDA " + partida);
+            
 
             for(Robo robo: this.robos){
+
+                pausa();
+                this.tabuleiro.criarTabuleiro();
+
+                 if(this.robos.get(0).equals(robo)){
+                    System.out.println("\nRobô normal - " + robo.getCor().getTipoCor());
+                }else{
+                    System.out.println("\nRobô inteligente - " + robo.getCor().getTipoCor());
+                }
 
                 if(!robo.getExplodiu()){
 
@@ -214,18 +230,30 @@ public class Jogo04 extends Jogo{
 
                 }
 
+                if(robo.getExplodiu()){
+
+                    int indice = 0;
+                    if(this.robos.indexOf(robo) == 0){
+                        indice = 1;
+                    }else{
+                        indice = 0;
+                    }
+
+                    vencedor = this.robos.get(indice);
+                    break;
+                }
+
+
                 pausa();
                 this.tabuleiro.criarTabuleiro();
                 
             }
 
-            partida++;
+            partida++;     
             
         }
 
-        pausa();
-        this.tabuleiro.criarTabuleiro();
-                
+        
 
         for(Robo robo : this.robos){
             System.out.println("-----------");
@@ -253,4 +281,5 @@ public class Jogo04 extends Jogo{
         return this.robos.stream().allMatch(robo -> robo.getExplodiu() == true) ? false: true;
     }
     
+   
 }

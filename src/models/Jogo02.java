@@ -16,14 +16,20 @@ public class Jogo02 extends Jogo{
         Robo vencedor = null;
         int partida = 1;
 
+
+        System.out.println("Preparando o tabuleiro...");
+        pausa();
+        this.tabuleiro.criarTabuleiro();
+        System.out.println("Comece o jogo!");   
+
         while(vencedor == null){
             System.out.println();
             System.out.println("PARTIDA " + partida);
-            pausa();   
-            this.tabuleiro.criarTabuleiro();
 
             for(Robo robo : this.robos){
 
+                System.out.println();
+                System.out.println("Robô - " + robo.getCor().getTipoCor());
                 moverAleatorio(robo);
 
                 if(robo.encontrouAlimento(this.fruta)){
@@ -31,12 +37,17 @@ public class Jogo02 extends Jogo{
                     break;
                 }
 
+                pausa();   
+                this.tabuleiro.criarTabuleiro();
+                
+
             }  
 
-             pausa();   
-             this.tabuleiro.criarTabuleiro();
             partida++;
         }
+
+        pausa();   
+        this.tabuleiro.criarTabuleiro();
 
        
         for(Robo robo: this.robos){

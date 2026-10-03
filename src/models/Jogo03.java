@@ -43,7 +43,7 @@ public class Jogo03 extends Jogo{
         System.out.println("Selecione o número da cor desejada para o robô: ");
         int escolha = Utilitarios.inteiroValido();
 
-        while(escolha <= 0 || escolha > Cor.values().length){
+        while(escolha <= 0 || escolha > Cor.values().length || jaTemRoboDessaCor(escolha)){
 
             System.out.println("A cor escolhida não está disponível. Selecione uma cor válida: ");
             escolha = Utilitarios.inteiroValido();
@@ -131,20 +131,35 @@ public class Jogo03 extends Jogo{
             return;
         }
 
+        System.out.println("Preparando o tabuleiro...");
+        pausa();
+        this.tabuleiro.criarTabuleiro();
+        System.out.println("Comece o jogo!");   
+
         int partida = 1;
         while(!todosEncontraram()){
 
             System.out.println();
             System.out.println("PARTIDA " + partida);
+
             for(Robo robo : this.robos){
+
+                if(this.robos.get(0).equals(robo)){
+                    System.out.println("\nRobô normal - " + robo.getCor().getTipoCor());
+                }else{
+                    System.out.println("\nRobô inteligente - " + robo.getCor().getTipoCor());
+                }
+
+                pausa();
+                this.tabuleiro.criarTabuleiro();
+           
+                
                 
                 if(robo.encontrouAlimento(fruta)) continue;
                 moverAleatorio(robo);
 
             }  
             
-            pausa();
-            this.tabuleiro.criarTabuleiro();
            
 
             partida++;
