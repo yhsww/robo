@@ -4,13 +4,14 @@ public class MovimentoInvalidoException extends RuntimeException{
 
     public MovimentoInvalidoException(String movimento){
 
-        super(movimento + " é inválido! O robô não pode sair do tabuleiro.");
+        super(movimento + " é inválido!");
     }
 
 
     public MovimentoInvalidoException(){
 
-        super("Movimento inválido! O robô não pode acessar a casa desejada.");
+        super("O movimento requisitado é inválido!");
     }
+
     
 }

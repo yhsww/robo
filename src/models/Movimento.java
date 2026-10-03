@@ -2,7 +2,10 @@ package models;
 
 public enum Movimento {
 
-    UP("up", 1), DOWN("down", 2), RIGHT("right", 3), LEFT("left", 4);
+    UP("up", 1), 
+    DOWN("down", 2), 
+    RIGHT("right", 3), 
+    LEFT("left", 4);
 
     private String tipoMovimento;
     private int numTipoMovimento;
