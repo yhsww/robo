@@ -20,8 +20,8 @@ public class Tabuleiro {
     
     public void criarTabuleiro(){
 
-        for (int posY = Tabuleiro.DIMENSAO_TABULEIRO; posY > 0; posY--) {
-            for (int posX = 1; posX <= Tabuleiro.DIMENSAO_TABULEIRO; posX++) {
+        for (int posX = 1; posX <= Tabuleiro.DIMENSAO_TABULEIRO; posX++) {
+            for (int posY = 1; posY <= Tabuleiro.DIMENSAO_TABULEIRO; posY++) {
                 
                 String casa = "[.]";
 
@@ -33,11 +33,12 @@ public class Tabuleiro {
 
                     if(obstaculo instanceof Bomba bomba && bomba.getPosX() == posX && bomba.getPosY() == posY){
                         casa = "[B]";
+                        break;
                     }else if(obstaculo instanceof Rocha rocha && rocha.getPosX() == posX && rocha.getPosY() == posY){
                         casa = "[R]";
-                    }else{
-                        casa = "[.]";
+                        break;
                     }
+
                 }
 
 
@@ -45,6 +46,7 @@ public class Tabuleiro {
 
                     if(!robo.getExplodiu() && robo.getPosX() == posX && robo.getPosY() == posY){
                         casa = "[" + robo.getCor().getTipoCor().charAt(0) + "]";
+                        break;
                     }
                 }
 
@@ -66,6 +68,7 @@ public class Tabuleiro {
         boolean obstaculo = this.obstaculos.stream().anyMatch(ob -> ob.getPosX() == posX && ob.getPosY() == posY);
 
         if(naFruta || outroRobo || obstaculo){
+            System.out.println("A posição selecionada já está ocupada!");
             return false;
         }
 
@@ -94,6 +97,7 @@ public class Tabuleiro {
             return true;
         }
 
+
         return false;    
 
     }
@@ -114,6 +118,7 @@ public class Tabuleiro {
             this.robos.add(robo);
             return true;
         }
+
 
         return false;
 

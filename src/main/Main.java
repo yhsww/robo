@@ -66,9 +66,12 @@ public class Main {
             System.out.println("Quantos obstáculos deseja adicionar?");
             int qtdObstaculos = Utilitarios.inteiroValido();
             
-            for(int i = 0; i < qtdObstaculos; i++){
+            
+            for(int i = 1; i <= qtdObstaculos; i++){
+                
                 boolean addObstaculo = false;
                 while (!addObstaculo) {
+                    System.out.println("\nObstáculo " + i);
                     addObstaculo = j4.adicionarObstaculo();
                 }        
             }
@@ -76,7 +79,7 @@ public class Main {
         }
 
         System.out.println("---------------------");
-        System.out.println("Iniciando jogo partida");
+        System.out.println("Iniciando jogo");
         jogo.iniciarPartida();
         System.out.println("---------------------");
         System.out.println("FIM DE JOGO");

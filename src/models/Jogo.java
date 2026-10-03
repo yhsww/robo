@@ -37,7 +37,7 @@ public abstract class Jogo {
     protected void pausa(){
 
         try{
-            Thread.sleep(1200);
+            Thread.sleep(1400);
 
         }catch(InterruptedException e){
             Thread.currentThread().interrupt();
@@ -78,7 +78,7 @@ public abstract class Jogo {
             System.out.println("Fruta adicionada com sucesso!");
             return true;
         }
-
+        
         System.out.println("Posição inválida!");
         return false;
 
@@ -105,11 +105,13 @@ public abstract class Jogo {
         System.out.println("Selecione o número da cor desejada para o robô: ");
         int escolha = Utilitarios.inteiroValido();
 
-        while(escolha <= 0 || escolha > Cor.values().length){
+        while(escolha <= 0 || escolha > Cor.values().length || jaTemRoboDessaCor(escolha)){
 
             System.out.println("A cor escolhida não está disponível. Selecione uma cor válida: ");
             escolha = Utilitarios.inteiroValido();
+
         }
+
 
         switch (escolha) {
 
@@ -141,6 +143,10 @@ public abstract class Jogo {
 
     public abstract void iniciarPartida();
 
-    
+    protected boolean jaTemRoboDessaCor(int numCor){
 
+        return this.robos.stream().anyMatch(robo -> robo.getCor().getNumCor() == numCor);
+    }
+
+   
 }

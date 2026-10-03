@@ -9,7 +9,8 @@ public class Rocha extends Obstaculo{
     public void bater(Robo robo){
 
         robo.voltarPosicaoAnterior();
-        System.out.println("Ops! O robô encontrou uma rocha e voltou para a casa anterior.");
+        System.out.println("Ops! O robô encontrou uma rocha.");
+        System.out.println("Robô volta para a casa anterior:  [" + this.posX + "," + this.posY + "]"); 
         
     }
     
