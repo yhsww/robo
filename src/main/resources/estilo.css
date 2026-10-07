@@ -1,167 +1,162 @@
 .root {
-    -fx-font-family: "Segoe UI", "Inter", "Roboto", "Arial";
-}
-
-.painel {
-    -fx-background-color: linear-gradient(to bottom, #181b30, #10121f);
-    -fx-border-color: transparent transparent transparent #262b4d;
-    -fx-border-width: 0 0 0 1;
-}
-
-.titulo {
-    -fx-font-size: 32px;
-    -fx-font-weight: bold;
-    -fx-text-fill: white;
-}
-
-.destaque {
-    -fx-background-color: linear-gradient(to right, #5865f2, #a78bfa);
-    -fx-background-radius: 4;
-}
-
-.subtitulo {
-    -fx-font-size: 14px;
-    -fx-font-weight: 600;
-    -fx-text-fill: #9aa1c9;
-}
-
-.secao {
-    -fx-font-size: 12px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #7c84b3;
-}
-
-.log {
-    -fx-background-color: #0e1020;
-    -fx-background-insets: 0;
-    -fx-background-radius: 14;
-    -fx-border-color: #2b3057;
-    -fx-border-width: 1;
-    -fx-border-radius: 14;
-    -fx-padding: 0;
-    -fx-font-size: 15px;
-    -fx-font-weight: 600;
-    -fx-text-fill: #eceeff;
-    -fx-highlight-fill: #3d4799;
-    -fx-highlight-text-fill: white;
+    -fx-font-family: "Segoe UI", "Roboto", "Arial";
     -fx-focus-color: transparent;
     -fx-faint-focus-color: transparent;
 }
 
-.log .scroll-pane {
-    -fx-background-color: transparent;
+/* ---------- Tela de jogo ---------- */
+
+.painel {
+    -fx-background-color: #252525;
+    -fx-border-color: #3a3a3a;
+    -fx-border-width: 0 0 0 1;
+}
+
+.titulo {
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #e6e6e6;
+}
+
+.subtitulo {
+    -fx-font-size: 13px;
+    -fx-text-fill: #9a9a9a;
+}
+
+.secao {
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #8a8a8a;
+}
+
+.log {
+    -fx-background-color: #1b1b1b;
     -fx-background-insets: 0;
-    -fx-border-color: transparent;
+    -fx-background-radius: 4;
+    -fx-border-color: #3a3a3a;
+    -fx-border-radius: 4;
     -fx-padding: 0;
+    -fx-font-family: "JetBrains Mono", "Consolas", "Monospaced";
+    -fx-font-size: 13px;
+    -fx-text-fill: #d4d4d4;
+    -fx-highlight-fill: #5a4a20;
+    -fx-highlight-text-fill: #ffffff;
 }
 
-.log .scroll-pane .viewport {
-    -fx-background-color: transparent;
-}
-
+.log .scroll-pane,
+.log .scroll-pane .viewport,
 .log .scroll-pane .corner {
     -fx-background-color: transparent;
 }
 
 .log .content {
     -fx-background-color: transparent;
-    -fx-background-insets: 0;
-    -fx-padding: 12 14 12 14;
+    -fx-padding: 10;
 }
 
-.log .text {
-    -fx-fill: #eceeff;
-}
-
-.scroll-bar:vertical {
-    -fx-background-color: transparent;
-    -fx-pref-width: 14;
-    -fx-padding: 4 2 4 2;
-}
-
+.scroll-bar:vertical,
 .scroll-bar:horizontal {
     -fx-background-color: transparent;
-    -fx-pref-height: 14;
-    -fx-padding: 2 4 2 4;
-}
-
-.scroll-bar .track {
-    -fx-background-color: transparent;
-    -fx-border-color: transparent;
-    -fx-background-radius: 10;
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: #3b4380;
-    -fx-background-insets: 0;
-    -fx-background-radius: 10;
+    -fx-background-color: #444444;
+    -fx-background-radius: 2;
 }
 
 .scroll-bar .thumb:hover {
-    -fx-background-color: #5865f2;
-}
-
-.scroll-bar .thumb:pressed {
-    -fx-background-color: #7885ff;
+    -fx-background-color: #5a5a5a;
 }
 
 .scroll-bar .increment-button,
-.scroll-bar .decrement-button {
-    -fx-background-color: transparent;
-    -fx-border-color: transparent;
-    -fx-padding: 0;
-}
-
+.scroll-bar .decrement-button,
 .scroll-bar .increment-arrow,
 .scroll-bar .decrement-arrow {
-    -fx-shape: " ";
     -fx-padding: 0;
+    -fx-shape: " ";
 }
 
 .campo {
-    -fx-background-color: #0e1020;
-    -fx-background-insets: 0;
-    -fx-background-radius: 12;
-    -fx-border-color: #2b3057;
-    -fx-border-width: 1;
-    -fx-border-radius: 12;
-    -fx-text-fill: #eceeff;
-    -fx-prompt-text-fill: #6b7299;
-    -fx-font-size: 15px;
-    -fx-font-weight: 600;
-    -fx-padding: 11 14 11 14;
-    -fx-highlight-fill: #3d4799;
-    -fx-highlight-text-fill: white;
-    -fx-focus-color: transparent;
-    -fx-faint-focus-color: transparent;
+    -fx-background-color: #1b1b1b;
+    -fx-background-radius: 4;
+    -fx-border-color: #3a3a3a;
+    -fx-border-radius: 4;
+    -fx-text-fill: #e6e6e6;
+    -fx-prompt-text-fill: #6a6a6a;
+    -fx-font-size: 14px;
+    -fx-padding: 8 10 8 10;
 }
 
 .campo:focused {
-    -fx-border-color: #5865f2;
-    -fx-effect: dropshadow(gaussian, rgba(88, 101, 242, 0.45), 12, 0.1, 0, 0);
+    -fx-border-color: #e0a526;
 }
 
 .botao {
-    -fx-background-color: linear-gradient(to bottom, #6672ff, #4f5bdb);
-    -fx-background-radius: 12;
-    -fx-text-fill: white;
-    -fx-font-size: 15px;
+    -fx-background-color: #e0a526;
+    -fx-background-radius: 4;
+    -fx-text-fill: #1b1b1b;
+    -fx-font-size: 14px;
     -fx-font-weight: bold;
-    -fx-padding: 11 24 11 24;
+    -fx-padding: 8 18 8 18;
     -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, rgba(88, 101, 242, 0.35), 10, 0.1, 0, 2);
 }
 
 .botao:hover {
-    -fx-background-color: linear-gradient(to bottom, #7a85ff, #5f6bf0);
+    -fx-background-color: #ecb53c;
 }
 
 .botao:pressed {
-    -fx-background-color: #4650c4;
-    -fx-effect: none;
+    -fx-background-color: #c48f1c;
 }
 
-.botao:focused {
-    -fx-focus-color: transparent;
-    -fx-faint-focus-color: transparent;
+.botao-secundario {
+    -fx-background-color: transparent;
+    -fx-background-radius: 4;
+    -fx-border-color: #3a3a3a;
+    -fx-border-radius: 4;
+    -fx-text-fill: #9a9a9a;
+    -fx-font-size: 13px;
+    -fx-padding: 7 14 7 14;
+    -fx-cursor: hand;
+}
+
+.botao-secundario:hover {
+    -fx-border-color: #6a6a6a;
+    -fx-text-fill: #e6e6e6;
+}
+
+/* ---------- Menu ---------- */
+
+.menu {
+    -fx-background-color: #1e1e1e;
+}
+
+.menu-titulo {
+    -fx-font-size: 40px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #e6e6e6;
+}
+
+.menu-subtitulo {
+    -fx-font-size: 15px;
+    -fx-text-fill: #9a9a9a;
+}
+
+.card {
+    -fx-background-color: #252525;
+    -fx-background-radius: 6;
+    -fx-border-color: #3a3a3a;
+    -fx-border-radius: 6;
+    -fx-padding: 18;
+    -fx-cursor: hand;
+}
+
+.card:hover {
+    -fx-border-color: #e0a526;
+}
+
+.card-titulo {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #e6e6e6;
 }

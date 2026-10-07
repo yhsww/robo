@@ -19,23 +19,11 @@ public class Tabuleiro {
     }
 
     public boolean validarPosicao(Posicao pos) {
-        boolean naFruta = false;
-        if (fruta != null) {
-            naFruta = pos.equals(this.fruta.getPos());
-        }
+        boolean naFruta = fruta != null && pos.equals(fruta.getPos());
+        boolean outroRobo = robos.stream().anyMatch(r -> r.getPos().equals(pos));
+        boolean obstaculo = obstaculos.stream().anyMatch(o -> o.getPos().equals(pos));
 
-        boolean outroRobo = this.robos
-            .stream()
-            .anyMatch(robo -> robo.getPos().equals(pos));
-        boolean obstaculo = this.obstaculos
-            .stream()
-            .anyMatch(ob -> ob.getPos().equals(pos));
-
-        if (naFruta || outroRobo || obstaculo) {
-            return false;
-        }
-
-        return true;
+        return !naFruta && !outroRobo && !obstaculo;
     }
 
     public boolean adicionarFruta(Fruta fruta) {

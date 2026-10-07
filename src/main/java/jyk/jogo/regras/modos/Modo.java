@@ -43,11 +43,17 @@ public abstract class Modo {
 
     protected abstract Resultado posicionarRobo(Posicao pos);
 
+    protected Resultado posicionarObstaculo(Posicao pos) {
+        return new Resultado("Este modo não posiciona obstáculos.", false);
+    }
+
     public Resultado clicar(Posicao pos) {
         if (fase == Fase.POSICIONAR_FRUTA) {
             return posicionarFruta(pos);
         } else if (fase == Fase.POSICIONAR_ROBO) {
             return posicionarRobo(pos);
+        } else if (fase == Fase.POSICIONAR_OBSTACULO) {
+            return posicionarObstaculo(pos);
         }
 
         return new Resultado("Células já posicionadas", false);
@@ -62,6 +68,11 @@ public abstract class Modo {
         } else if (fase == Fase.POSICIONAR_ROBO) {
             return new Resultado(
                 "Clique em uma célula para posicionar o robô primeiro.",
+                false
+            );
+        } else if (fase == Fase.POSICIONAR_OBSTACULO) {
+            return new Resultado(
+                "Clique em uma célula para posicionar o obstáculo primeiro.",
                 false
             );
         }
@@ -88,6 +99,10 @@ public abstract class Modo {
     }
 
     protected abstract Resultado processar(String comando);
+
+    public boolean isAutomatico() {
+        return false;
+    }
 
     public Tabuleiro getTabuleiro() {
         return tabuleiro;

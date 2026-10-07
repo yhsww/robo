@@ -38,7 +38,12 @@ public class ModoUmRobo extends Modo {
         }
 
         if (r.encontrouAlimento(tabuleiro.getFruta())) {
-            resultado = new Resultado(r.toString(), true);
+            resultado = new Resultado(
+                "Fim de jogo! O robô " + r.getCor() + " alcançou a fruta!\n" +
+                    r.toString() +
+                    "\n=============================",
+                true
+            );
             setFase(Fase.TERMINADA);
         }
 

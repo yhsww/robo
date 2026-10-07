@@ -10,13 +10,13 @@ public class RoboInteligente extends Robo {
     }
 
     @Override
-    public Resultado mover(int direcao) throws MovimentoInvalidoException {
-        try {
-            int direcaoAleatoria = ThreadLocalRandom.current().nextInt(1, 5);
-            return super.mover(direcaoAleatoria);
-        } catch (MovimentoInvalidoException e) {
-            int novaDirecaoAleatoria = ThreadLocalRandom.current().nextInt(1, 5);
-            return this.mover(novaDirecaoAleatoria);
+    public Resultado mover(int direcao) {
+        while (true) {
+            try {
+                return super.mover(ThreadLocalRandom.current().nextInt(1, 5));
+            } catch (MovimentoInvalidoException e) {
+                qtdMovimentosInvalidos--;
+            }
         }
     }
 }

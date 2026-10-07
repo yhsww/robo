@@ -1,87 +1,71 @@
 package jyk.jogo.regras.modos;
 
-import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 import jyk.jogo.regras.Posicao;
 import jyk.jogo.regras.celulas.Bomba;
 import jyk.jogo.regras.celulas.Obstaculo;
 import jyk.jogo.regras.celulas.Rocha;
 import jyk.jogo.regras.robo.Cor;
-import jyk.jogo.regras.robo.MovimentoInvalidoException;
 import jyk.jogo.regras.robo.Robo;
 import jyk.jogo.regras.robo.RoboInteligente;
 
-public class ModoUmBurroUmInteligenteObstaculos extends Modo {
-
-    public ModoUmBurroUmInteligenteObstaculos() {
-        Rocha rocha = new Rocha(1, new Posicao(0, 3));
-        Bomba bomba = new Bomba(2, new Posicao(3, 0));
-
-        tabuleiro.adicionarObstaculos(rocha);
-        tabuleiro.adicionarObstaculos(bomba);
-    }
+public class ModoUmBurroUmInteligenteObstaculos extends ModoAutomatico {
 
     @Override
     public Resultado posicionarRobo(Posicao pos) {
-        Robo novoRobo = null;
+        boolean segundoRobo = tabuleiro.getRobos().size() == 1;
 
-        if (tabuleiro.getRobos().size() == 1) {
-            novoRobo = new RoboInteligente(Cor.AZUL);
-            this.setFase(Fase.JOGANDO);
-        } else {
-            novoRobo = new Robo(Cor.VERMELHO);
+        Robo novoRobo = segundoRobo
+            ? new RoboInteligente(Cor.AZUL)
+            : new Robo(Cor.VERMELHO);
+        novoRobo.setPos(pos);
+
+        if (!tabuleiro.adicionarRobo(novoRobo)) {
+            return new Resultado(
+                "Essa célula já está ocupada. Escolha outra.",
+                false
+            );
         }
 
-        novoRobo.setPos(pos);
-        if (tabuleiro.adicionarRobo(novoRobo)) {
+        if (segundoRobo) {
+            setFase(Fase.POSICIONAR_OBSTACULO);
             return new Resultado(
-                "Robô em (" + pos.x() + "," + pos.y() + ").",
+                "Robô em (" + pos.x() + "," + pos.y() + "). Agora posicione a rocha.",
                 false
             );
         }
 
         return new Resultado(
-            "Essa célula já está ocupada. Escolha outra.",
+            "Robô em (" + pos.x() + "," + pos.y() + ").",
             false
         );
     }
 
     @Override
-    public Resultado processar(String cmd) {
-        if (getFase() != Fase.JOGANDO) return new Resultado("", true);
+    protected Resultado posicionarObstaculo(Posicao pos) {
+        boolean primeiroObstaculo = tabuleiro.getObstaculos().isEmpty();
 
-        List<Robo> rbs = this.tabuleiro.getRobos();
-        List<Obstaculo> obs = this.tabuleiro.getObstaculos();
-        StringBuilder sb = new StringBuilder();
+        Obstaculo novoObstaculo = primeiroObstaculo
+            ? new Rocha(1, pos)
+            : new Bomba(2, pos);
 
-        for (Robo r : rbs) {
-            try {
-                int dir = ThreadLocalRandom.current().nextInt(1, 5);
-                r.mover(dir);
-            } catch (MovimentoInvalidoException e) {
-                sb.append(r.getCor() + " tentou fugir!\n");
-                continue;
-            }
-
-            for (Obstaculo o : obs) {
-                if (r.getPos().equals(o.getPos())) {
-                    sb.append(o.bater(r).mensagem() + "\n");
-                }
-
-                if (r.getExplodiu()) {
-                    tabuleiro.removerRobo(r);
-                    tabuleiro.removerObstaculo(o);
-                }
-            }
-
-            if (r.encontrouAlimento(tabuleiro.getFruta())) {
-                sb.append(r.getCor() + " encontrou a fruta!\n");
-                tabuleiro.removerRobo(r);
-            } else {
-                sb.append(r.getCor() + " para " + r.getPos() + "\n");
-            }
+        if (!tabuleiro.adicionarObstaculos(novoObstaculo)) {
+            return new Resultado(
+                "Essa célula já está ocupada. Escolha outra.",
+                false
+            );
         }
 
-        return new Resultado(sb.toString().trim(), false);
+        if (primeiroObstaculo) {
+            return new Resultado(
+                "Rocha em (" + pos.x() + "," + pos.y() + "). Agora posicione a bomba.",
+                false
+            );
+        }
+
+        setFase(Fase.JOGANDO);
+        return new Resultado(
+            "Bomba em (" + pos.x() + "," + pos.y() + ").",
+            false
+        );
     }
 }

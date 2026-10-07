@@ -81,6 +81,11 @@ public class Robo {
             default -> null;
         };
 
+        if (mov == null) return new Resultado(
+            "Comando \"" + direcao + "\" inválido. Use cima, baixo, direita, esquerda ou 1-4.",
+            false
+        );
+
         return mover(mov.codigo);
     }
 
