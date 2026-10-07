@@ -1,7 +1,6 @@
 package jyk.jogo.regras.modos;
 
 import java.util.List;
-
 import jyk.jogo.regras.Posicao;
 import jyk.jogo.regras.Tabuleiro;
 import jyk.jogo.regras.celulas.Fruta;
@@ -12,6 +11,8 @@ public abstract class Modo {
 
     public enum Fase {
         POSICIONAR_FRUTA,
+        POSICIONAR_ROBO,
+        POSICIONAR_OBSTACULO,
         JOGANDO,
         TERMINADA,
     }
@@ -21,27 +22,46 @@ public abstract class Modo {
     protected final Tabuleiro tabuleiro = new Tabuleiro();
     protected Fase fase = Fase.POSICIONAR_FRUTA;
 
-    public Resultado clicar(Posicao pos) {
-        if (fase != Fase.POSICIONAR_FRUTA) {
-            return new Resultado("A fruta já foi posicionada.", false);
-        }
-        if (!tabuleiro.adicionarFruta(new Fruta(pos, Fruta.Tipo.BANANA))) {
+    protected Resultado posicionarFruta(Posicao pos) {
+        if (tabuleiro.adicionarFruta(new Fruta(pos, Fruta.Tipo.BANANA))) {
+            fase = Fase.POSICIONAR_ROBO;
             return new Resultado(
-                "Essa célula já está ocupada. Escolha outra.",
+                "Fruta em (" +
+                    pos.x() +
+                    "," +
+                    pos.y() +
+                    ").",
                 false
             );
         }
-        fase = Fase.JOGANDO;
+
         return new Resultado(
-            "Fruta em (" + pos.x() + "," + pos.y() + "). Digite um comando.",
+            "Essa célula já está ocupada. Escolha outra.",
             false
         );
+    }
+
+    protected abstract Resultado posicionarRobo(Posicao pos);
+
+    public Resultado clicar(Posicao pos) {
+        if (fase == Fase.POSICIONAR_FRUTA) {
+            return posicionarFruta(pos);
+        } else if (fase == Fase.POSICIONAR_ROBO) {
+            return posicionarRobo(pos);
+        }
+
+        return new Resultado("Células já posicionadas", false);
     }
 
     public Resultado executar(String entrada) {
         if (fase == Fase.POSICIONAR_FRUTA) {
             return new Resultado(
                 "Clique em uma célula para posicionar a fruta primeiro.",
+                false
+            );
+        } else if (fase == Fase.POSICIONAR_ROBO) {
+            return new Resultado(
+                "Clique em uma célula para posicionar o robô primeiro.",
                 false
             );
         }
@@ -69,11 +89,11 @@ public abstract class Modo {
 
     protected abstract Resultado processar(String comando);
 
-	public Tabuleiro getTabuleiro() {
-		return tabuleiro;
-	}
+    public Tabuleiro getTabuleiro() {
+        return tabuleiro;
+    }
 
-	public void setFase(Fase fase) {
-		this.fase = fase;
-	}
+    public void setFase(Fase fase) {
+        this.fase = fase;
+    }
 }
