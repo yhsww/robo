@@ -9,13 +9,7 @@ O projeto permite explorar diferentes modos de jogo e estratégias de movimenta�
 - **JavaFX**
 - **Apache Maven**
 - **CSS**
-
-## Pré-requisitos
-
-Antes de executar o projeto, instale:
-- JDK 21.
-- Apache Maven.
-
+- 
 Verifique se Java e Maven estão disponíveis no terminal:
 
 ```bash
