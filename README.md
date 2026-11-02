@@ -9,15 +9,8 @@ O projeto permite explorar diferentes modos de jogo e estratégias de movimenta�
 - **JavaFX**
 - **Apache Maven**
 - **CSS**
+
 - 
-Verifique se Java e Maven estão disponíveis no terminal:
-
-```bash
-java -version
-mvn -version
-git --version
-```
-
 ## Como obter o projeto
 
 Clone o repositório:
