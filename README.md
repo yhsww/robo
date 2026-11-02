@@ -1,4 +1,4 @@
-# Robo — Jogo de Robôs
+# Fruit Bot
 
 Projeto desenvolvido em Java com JavaFX, no qual diferentes robôs interagem com um tabuleiro que contém elementos como frutas, obstáculos, rochas e bombas.
 
